@@ -1,9 +1,12 @@
-<?php include('include/header.php') ?>
+<!-- script for chart -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
+<!-- start -->
+<?php include('include/header.php') ?>
 <?php include 'include/sidebar.php'; ?>
 <section class="home-section bg-white">
 
-    
+
 
 
     <?php $query = mysqli_query($conn, "SELECT * FROM users WHERE email='{$_SESSION['SESSION_EMAIL']}'");
@@ -27,6 +30,124 @@
         unset($_SESSION['success']);
     }
     ?>
+
+
+
+
+
+    <!-- bar chart type-->
+
+    <?php
+
+    $sql_chart2 = "SELECT tree_type, COUNT(*) as count FROM tree GROUP BY tree_type DESC LIMIT 2";
+    $result_chart2 = $conn->query($sql_chart2);
+
+    $labels2 = [];
+    $data2 = [];
+
+    while ($row_chart2 = $result_chart2->fetch_assoc()) {
+        array_push($labels2, $row_chart2['tree_type']);
+        array_push($data2, $row_chart2['count']);
+    }
+    ?>
+
+    <div class="card col-11 mt-3 mx-auto">
+        <div class="card-header">
+            <b>Top 5 By School</b>
+        </div>
+        <div class="card-body p-3">
+        <canvas class="col-md-6" id="tree-chart2"></canvas>
+        </div>
+    </div>
+
+    <script>
+        var ctx = document.getElementById('tree-chart2').getContext('2d');
+        var chart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: <?php echo json_encode($labels2); ?>,
+                datasets: [{
+                    label: 'Tree Count By Type',
+                    data: <?php echo json_encode($data2); ?>,
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.5)'
+                    ],
+                    borderColor: [
+                        'rgba(255, 99, 132, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    </script>
+
+    <!-- end barchar -->
+
+
+    <!-- bar chart school-->
+
+    <?php
+
+    $sql_chart = "SELECT school_name, COUNT(*) as count FROM tree GROUP BY school_name DESC LIMIT 5";
+    $result_chart = $conn->query($sql_chart);
+
+    $labels = [];
+    $data = [];
+
+    while ($row_chart = $result_chart->fetch_assoc()) {
+        array_push($labels, $row_chart['school_name']);
+        array_push($data, $row_chart['count']);
+    }
+    ?>
+
+    <div class="card col-11 mt-3 mx-auto">
+        <div class="card-header">
+            <b>Top 5 By School</b>
+        </div>
+        <div class="card-body p-3">
+        <canvas class="col-md-6" id="tree-chart"></canvas>
+        </div>
+    </div>
+
+    <script>
+        var ctx = document.getElementById('tree-chart').getContext('2d');
+        var chart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: <?php echo json_encode($labels); ?>,
+                datasets: [{
+                    label: 'Tree Count By Type',
+                    data: <?php echo json_encode($data); ?>,
+                    backgroundColor: [
+                        'rgba(54, 162, 235, 0.5)',
+                    ],
+                    borderColor: [
+                        'rgba(54, 162, 235, 1)',
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    </script>
+
+    <!-- end barchar -->
+
+
+    <!-- tree monitoring table -->
     <div class="card col-11 mx-auto mt-3 bg-white">
 
         <div class="card-header text-white
@@ -42,7 +163,7 @@
         </div>
         <div class="card-body">
             <?php if ($type == "coordinator"): ?>
-                <table class="table table-bordered" id="example">
+                <table class="table table-bordered table-responsive" id="example">
 
                     <thead class="text-center">
                         <tr>
