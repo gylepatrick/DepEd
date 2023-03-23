@@ -3,7 +3,7 @@
 include('include/db.php');
 
 // SQL query to retrieve tree count based on tree_type
-$sql = "SELECT tree_type, COUNT(*) as count FROM tree GROUP BY tree_type";
+$sql = "SELECT tree, COUNT(*) as count FROM tree WHERE tree_status = 'alive' GROUP BY tree ";
 $result = $conn->query($sql);
 
 // Initialize arrays for chart data
@@ -12,7 +12,7 @@ $data = [];
 
 // Loop through the query results and add data to arrays
 while ($row = $result->fetch_assoc()) {
-    array_push($labels, $row['tree_type']);
+    array_push($labels, $row['tree']);
     array_push($data, $row['count']);
 }
 

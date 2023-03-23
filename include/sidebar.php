@@ -65,6 +65,16 @@ if (mysqli_num_rows($query) > 0) {
         </li>
 
         <li>
+            <a href="graphs.php">
+                <i class='bx bxl-graphql'></i>
+                <span class="link_name">Graphs</span>
+            </a>
+            <ul class="sub-menu blank">
+                <li><a class="link_name" href="graphs.php">Graphs</a></li>
+            </ul>
+        </li>
+
+        <li>
             <a href="school.php">
                 <i class='bx bxs-school icon'></i>
                 <span class="link_name">School/District</span>

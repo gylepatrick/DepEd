@@ -77,10 +77,15 @@ include 'config.php'; ?>
                                                         class="form-control" value="<?php echo $name; ?>">
                                                 </div>
                                                 <div class="col-md-5">
-                                                    <div class="form-group mb-4">
+                                                    <div class="form-group">
                                                         <label for="">School(Uneditable)</label>
                                                         <input type="text" name="school_name" readonly="readonly"
-                                                            class="form-control" value="<?php echo $school; ?> - <?php echo $district ?>">
+                                                            class="form-control" value="<?php echo $school; ?>">
+                                                    </div>
+                                                    <div class="form-group mb-4">
+                                                        <label for="">District(Uneditable)</label>
+                                                        <input type="text" name="district_name" readonly="readonly"
+                                                            class="form-control" value="<?php echo $district ?>">
                                                     </div>
                                                 </div>
 
@@ -94,13 +99,14 @@ include 'config.php'; ?>
                                                 <div class="col-md-3">
                                                     <div class="form-group mb-2">
                                                         <label for="">Location</label>
-                                                        <select name="locations" id="location" class="form-control">
+                                                        <select name="location" id="location" class="form-control">
                                                             <option>--Select--</option>
                                                             <option value="inside">Inside School</option>
                                                             <option value="outside">Outside School</option>
                                                         </select>
-                                                        <input type="text" name="location" class="form-control" required
-                                                            placeholder="Please Specify">
+                                                        <label for="">Barangay</label>
+                                                        <input type="text" name="brgy" class="form-control" required
+                                                            placeholder="Please Specify Barangay">
                                                     </div>
                                                 </div>
 
